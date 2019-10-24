@@ -1,0 +1,10 @@
+Passo 1
+create_tables.sql
+
+Comando: cd /microservico-hash/mariadb
+comando: docker build .
+Comando: docker run -d --name mariadb2 -p 33061:3306 -v ~/Docker/mariadb1/config:/etc/mysql/conf.d -v ~/Docker/mariadb1/datadir:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root123 -e MYSQL_DATABASE=dbtest severalnines/mariadb-ssh
+
+
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container_name_or_id
+

@@ -1,0 +1,60 @@
+/**
+ * dmsec.proto related messages.
+ *
+ * Este arquivo define o modelo de Cliente,
+ * Produto, Valor de desconto e o Serviço de Aplicar Desconto.
+ */
+
+syntax = "proto3";
+package dmsec;
+
+/**
+ * Define o serviço de desconto.
+ */
+service Desconto {
+ rpc AplicarDesconto (DescontoRequisicao) returns (DescontoResposta) {} /// AplicarDesconto - Recebe a mensagem DescontoRequisicao e retorna a mensagem DescontoResposta
+}
+
+/**
+ * Modelo Cliente
+ */
+message Cliente {
+ int32 id = 1; /// Id do Cliente
+ string first_name = 2; /// Primeiro nome do Cliente
+ string last_name = 3; /// Sobrenome do Cliente
+ string birthday = 4; /// Data de nascimento - Utilizar no formato dd/mm/yyyy
+}
+
+/**
+ * Modelo do Produto
+ */
+message Produto {
+ int32 id = 1; /// Id Produto
+ string title = 2; /// Nome do Produto
+ string description = 3; /// Descrição do Produto
+ int32 price_in_cents = 4; /// Preço do Produto
+ DiscountValue discount_value = 5; /// Objeto de Valor do desconto
+}
+
+/**
+ * Objeto Valor de Desconto
+ */
+message DiscountValue {
+ float pct = 1; /// Porcentagem do desconto
+ int32 value_in_cents = 2; /// Valor do produto alterado com o desconto
+}
+
+/**
+ * Definição da Requisição do Desconto
+ * Conterá Cliente e Produto
+ */
+message DescontoRequisicao {
+ Cliente cliente = 1; /// Objeto de Cliente
+ Produto produto = 2; /// Objeto de Produto
+}
+/**
+ * Definição da resposta
+ */
+message DescontoResposta {
+ Produto produto = 1; /// Conterá apenas o Produto com o desconto
+}

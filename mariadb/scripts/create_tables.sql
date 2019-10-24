@@ -1,0 +1,55 @@
+use mysql;
+
+DROP TABLE IF EXISTS `clientes`;
+CREATE TABLE `clientes` (
+  `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(30) NOT NULL,
+  `last_name` varchar(30) NOT NULL,
+  `birthday` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+
+DROP TABLE IF EXISTS `campanhas`;
+CREATE TABLE `campanhas` (
+  `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `campanha` varchar(30) NOT NULL,
+  `status` boolean NOT NULL,  
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+
+DROP TABLE IF EXISTS `produtos`;
+CREATE TABLE `produtos` (
+  `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(30) NOT NULL,
+  `description` varchar(30) NOT NULL,
+  `priceincents` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+
+
+
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Douglas','Marra','16/04/1989');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao2','abc','21/10/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao3','abc','22/10/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao4','abc','23/10/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao5','abc','24/10/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao6','abc','25/10/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao7','abc','26/10/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao8','abc','27/10/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao9','abc','28/10/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao10','abc','29/10/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao11','abc','30/10/2019');
+commit;
+
+INSERT INTO campanhas(campanha, status) VALUES('Blackfriday',true);
+commit;
+
+
+INSERT INTO produtos(title, description, priceincents) VALUES('IPHONE 11','64GB - green', 6500);
+INSERT INTO produtos(title, description, priceincents) VALUES('MOTOROLA','64GB - green', 900);
+INSERT INTO produtos(title, description, priceincents) VALUES('Notebook DELL','NOtebook Dell ABC', 4500);
+commit;
+

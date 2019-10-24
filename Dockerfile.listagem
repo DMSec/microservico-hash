@@ -1,0 +1,17 @@
+FROM golang:1.11-stretch
+
+ADD . $GOPATH/src/microservicos-hash
+
+RUN go get -u google.golang.org/grpc \
+ && go get -u github.com/golang/protobuf/proto \
+ && go get -u github.com/golang/protobuf/protoc-gen-go \
+ && go get -u github.com/go-sql-driver/mysql
+
+
+WORKDIR $GOPATH/src/microservicos-hash/listagem
+
+RUN ls $GOPATH/src/microservicos-hash/listagem
+RUN go env
+
+
+CMD ["go", "run", "main.go"]

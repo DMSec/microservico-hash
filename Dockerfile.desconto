@@ -1,0 +1,33 @@
+FROM ubuntu:18.04
+WORKDIR /root
+# Pick up some TF dependencies
+
+RUN apt-get update \
+    && apt-get install -y \
+        build-essential \
+        curl \
+        pkg-config \
+        rsync \
+        software-properties-common \
+        unzip \
+        git \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN add-apt-repository ppa:deadsnakes/ppa
+RUN apt-get update \
+    && apt-get install -y \
+	python3.7 \
+	python3-pip \
+	python \
+	python-pip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+ADD . /microservico-hash
+WORKDIR /microservico-hash/desconto
+RUN pip3 install grpcio grpcio-tools mysql-connector-python mysql-connector-python-rf
+
+RUN ls /microservico-hash/desconto
+
+CMD ["python3", "server.py", "11443"]
