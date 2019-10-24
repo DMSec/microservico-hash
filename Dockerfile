@@ -13,6 +13,7 @@ WORKDIR $GOROOT/src/microservicos-hash/listagem
 
 RUN ls $GOROOT/src/microservicos-hash/listagem
 RUN go env
-RUN go install
+
+WORKDIR $GOROOT/src/microservicos-hash/listagem
 
 CMD ["go", "run", "main.go"]

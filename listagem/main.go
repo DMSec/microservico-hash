@@ -189,8 +189,8 @@ func getProductsWithDiscountApplied(cliente pb.Cliente, produtos []*pb.Produto) 
 	return produtos
 }
 func handleGetProducts(w http.ResponseWriter, req *http.Request) {
-	//produtos := getFakeProducts()
-	produtos := getProdutos()
+	produtos := getFakeProducts()
+	//produtos := getProdutos()
 	w.Header().Set("Content-Type", "application/json")
 	clienteID := req.Header.Get("X-USER-ID")
 	fmt.Print(clienteID)
