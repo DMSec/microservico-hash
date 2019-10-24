@@ -14,10 +14,10 @@ from datetime import date
 
 
 def getConnection():
-    hostname = 'localhost'
-    username = 'root'
-    password = 'sistemas'
-    database = 'mysql'
+    hostname = os.environ['MYSQL_HOST']
+    username = os.environ['MYSQL_USER']
+    password = os.environ['MYSQL_PASSWORD']
+    database = os.environ['MYSQL_DBNAME']
     connection = mysql.connector.connect(host=hostname, user=username, passwd=password, db=database)
     return connection
 

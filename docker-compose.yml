@@ -16,6 +16,12 @@ services:
       dockerfile: Dockerfile.desconto
     ports:
       - 11443:11443
+    environment:
+      - MYSQL_PORT=3306
+      - MYSQL_HOST=database
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root123
+      - MYSQL_DBNAME=mysql
     depends_on:
       - database
   listagem:
