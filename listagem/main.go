@@ -54,11 +54,12 @@ func birthDate(birthDate time.Time, now time.Time) bool {
 
 func GetConnectionDB()(db *sql.DB) {
 	dbDriver := "mysql"
-	dbUser := "root"
-	dbPass := "root123"
-	dbName := "mysql"
-	dbHost := "172.17.0.2"
-	dbPort := "3306"
+	dbUser := os.Getenv("MYSQL_USER")
+	dbPass := os.Getenv("MYSQL_PASSWORD")
+	dbName := os.Getenv("MYSQL_DBNAME")
+	dbHost := os.Getenv("MYSQL_HOST")
+	dbPort := os.Getenv("MYSQL_PORT")
+
 	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@tcp("+dbHost+":"+dbPort+")/"+dbName)
 	//db, err := sql.Open("mysql", "db_user:password@tcp(localhost:3306)/my_db")
 	//db, err := sql.Open(dbDriver,dbUser+":"+dbPass+"@tcp"+"("+dbHost+":"+ dbPort +")@/"+<dbName>)
