@@ -11,7 +11,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"log"
-	pb "microservico-hash/listagem/dmsec"
+	pb "github.com/DMSec/microservico-hash/listagem/dmsec"
 	"net/http"
 	"os"
 	"path/filepath"
