@@ -14,7 +14,8 @@ DROP TABLE IF EXISTS `campanhas`;
 CREATE TABLE `campanhas` (
   `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
   `campanha` varchar(30) NOT NULL,
-  `status` boolean NOT NULL,  
+  `status` boolean NOT NULL,
+  'pct' int(2) NOT NULL,  
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
@@ -27,8 +28,6 @@ CREATE TABLE `produtos` (
   `priceincents` int(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
-
 
 
 INSERT INTO clientes(first_name, last_name, birthday) VALUES('Douglas','Marra','16/04/1989');
@@ -44,7 +43,8 @@ INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao10','abc','29/
 INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao11','abc','30/10/2019');
 commit;
 
-INSERT INTO campanhas(campanha, status) VALUES('Blackfriday',true);
+INSERT INTO campanhas(campanha, status, pct) VALUES('Blackfriday',true, 10);
+INSERT INTO campanhas(campanha, status, pct) VALUES('Aniversario',true, 5);
 commit;
 
 
