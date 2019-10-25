@@ -35,6 +35,7 @@ services:
       - MYSQL_USER=root
       - MYSQL_PASSWORD=root123
       - MYSQL_DBNAME=mysql
+      - PORT_SERVICE=11080
     links:
       - desconto:desconto
     depends_on:
