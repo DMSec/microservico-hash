@@ -249,7 +249,7 @@ func handleBlackFriday(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	port := "11081"
+	port := "11080"
 	if len(os.Args) > 1 {
 		port = os.Args[1]
 	}
