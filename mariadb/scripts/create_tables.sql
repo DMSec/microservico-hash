@@ -1,5 +1,6 @@
 use mysql;
 
+
 DROP TABLE IF EXISTS `clientes`;
 CREATE TABLE `clientes` (
   `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
@@ -8,8 +9,6 @@ CREATE TABLE `clientes` (
   `birthday` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
-Select * from campanhas;
 
 DROP TABLE IF EXISTS `campanhas`;
 CREATE TABLE `campanhas` (
@@ -57,3 +56,6 @@ INSERT INTO produtos(title, description, priceincents) VALUES('MOTOROLA','64GB -
 INSERT INTO produtos(title, description, priceincents) VALUES('Notebook DELL','NOtebook Dell ABC', 4500);
 commit;
 
+Select * from campanhas;
+select * from clientes;
+select * from produtos;
