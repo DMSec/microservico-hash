@@ -242,6 +242,7 @@ func handleBlackFriday(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
+	
 	x := ativar
 	newBool := !(x == 0) // returns false
 	setBlackfriday(newBool, int32(pct))
