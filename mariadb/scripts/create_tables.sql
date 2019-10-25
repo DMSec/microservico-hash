@@ -9,16 +9,18 @@ CREATE TABLE `clientes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
+Select * from campanhas;
 
 DROP TABLE IF EXISTS `campanhas`;
 CREATE TABLE `campanhas` (
   `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
   `campanha` varchar(30) NOT NULL,
   `status` boolean NOT NULL,
-  'pct' int(2) NOT NULL,  
+  `pct` int(2) NOT NULL,  
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
+Select * from campanhas;
 
 DROP TABLE IF EXISTS `produtos`;
 CREATE TABLE `produtos` (
@@ -47,6 +49,8 @@ INSERT INTO campanhas(campanha, status, pct) VALUES('Blackfriday',true, 10);
 INSERT INTO campanhas(campanha, status, pct) VALUES('Aniversario',true, 5);
 commit;
 
+
+select * from campanhas;
 
 INSERT INTO produtos(title, description, priceincents) VALUES('IPHONE 11','64GB - green', 6500);
 INSERT INTO produtos(title, description, priceincents) VALUES('MOTOROLA','64GB - green', 900);

@@ -50,7 +50,7 @@ func GetConnectionDB()(db *sql.DB) {
 
 	dbPass := os.Getenv("MYSQL_PASSWORD")
 	if len(dbPass) == 0{
-		dbPass = "sistemas"
+		dbPass = "root123"
 	}
 
 	dbName := os.Getenv("MYSQL_DBNAME")
@@ -242,7 +242,6 @@ func handleBlackFriday(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-
 	x := ativar
 	newBool := !(x == 0) // returns false
 	setBlackfriday(newBool, int32(pct))
@@ -250,7 +249,7 @@ func handleBlackFriday(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	port := "11080"
+	port := "11081"
 	if len(os.Args) > 1 {
 		port = os.Args[1]
 	}
