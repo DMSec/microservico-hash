@@ -4,6 +4,7 @@
 ![alt text](https://cdn-images-1.medium.com/max/800/1*I5kMbgX4qZkycpOFlcEbdw.png)
 
 
+
 Nesse exemplo temos 2 microserviços e uma base de dados compartilhada.
 
 1) Base de dados MariaDB com as tabelas Clientes, Produtos e Campanhas;
