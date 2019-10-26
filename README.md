@@ -1,5 +1,5 @@
 ## Microserviços em Golang, Python, MariaDB e Docker
-```
+
 Nesse exemplo temos 2 microserviços e uma base de dados compartilhada.
 
 1) Base de dados MariaDB com as tabelas Clientes, Produtos e Campanhas;
@@ -9,12 +9,11 @@ Nesse exemplo temos 2 microserviços e uma base de dados compartilhada.
 
 Informações detalhadas podem ser encontradas no https://medium.com/dmsec
 
-```
 # Clone este repositório
 
+```
 git clone https://github.com/DMSec/microservico-hash.git
 cd microservico-hash
-
 ```
 
 # Execução do docker compose build - Construção dos nossos containers
@@ -25,7 +24,6 @@ docker-compose build
 ```
 docker-compose up -d
 ```
-
 
 Portas utilizadas pelos serviços:
 11443 - Serviço de desconto;
