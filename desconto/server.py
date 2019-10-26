@@ -69,6 +69,10 @@ def birthday(birthday):
     else:
         return retorno
 
+def getBirthdayCampanha(cliente){
+
+}
+
 
 def clienteExistsAndBirthday(cliente):
     try:
