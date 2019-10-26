@@ -7,9 +7,12 @@
 
 Nesse exemplo temos 2 microserviços e uma base de dados compartilhada.
 
-1) Base de dados MariaDB com as tabelas Clientes, Produtos e Campanhas;
-2) Serviço de listagem - Responsável por expor e retornar uma API Rest de produtos cadastrados na base de dados;
-3) Serviço de desconto - Responsável por oferecer informações para o serviço de listagem de produtos, mas aplicando os descontos das campanhas. Nesse momento temos a campanha de blackfriday e a de aniversário;
+
+1) Usuário poderá chamar pelo Postman;
+2) usuário poderá chamar pelo CURL;
+3) Serviço de listagem - Responsável por expor e retornar uma API Rest de produtos cadastrados na base de dados;
+4) Base de dados MariaDB com as tabelas Clientes, Produtos e Campanhas;
+5) Serviço de desconto - Responsável por oferecer informações para o serviço de listagem de produtos, mas aplicando os descontos das campanhas. Nesse momento temos a campanha de blackfriday e a de aniversário;
 
 
 Informações detalhadas podem ser encontradas no https://medium.com/dmsec
