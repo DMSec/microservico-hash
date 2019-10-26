@@ -1,4 +1,4 @@
-## Microserviços em Golang, Python, MariaDB e Docker
+# Microserviços em Golang, Python, MariaDB e Docker
 
 Nesse exemplo temos 2 microserviços e uma base de dados compartilhada.
 
@@ -9,18 +9,18 @@ Nesse exemplo temos 2 microserviços e uma base de dados compartilhada.
 
 Informações detalhadas podem ser encontradas no https://medium.com/dmsec
 
-# Clone este repositório
+## Clone este repositório
 
 ```
 git clone https://github.com/DMSec/microservico-hash.git
 cd microservico-hash
 ```
 
-# Execução do docker compose build - Construção dos nossos containers
+## Execução do docker compose build - Construção dos nossos containers
 ```
 docker-compose build
 ```
-# Execução do docker compose up - Execução dos nossos containers
+## Execução do docker compose up - Execução dos nossos containers
 ```
 docker-compose up -d
 ```
@@ -29,20 +29,20 @@ Portas utilizadas pelos serviços:
 11443 - Serviço de desconto;
 11080 - Serviço de listagem;
 
-# Ativação e desativação de blackfriday com alteração de % da campanha
+## Ativação e desativação de blackfriday com alteração de % da campanha
 
 
-# Teste com blackfriday ativa sem usuário no header do POST
+## Teste com blackfriday ativa sem usuário no header do POST
 ```
 curl http://localhost:11080/products
 ```
 
-# Teste com usuário cadastrado e blackfriday desativada
+## Teste com usuário cadastrado e blackfriday desativada
 ```
 curl -H 'X-USER-ID: 1' http://localhost:11080/products
 ```
 
-# Teste com usuário cadastrado e aniversário do usuário
+## Teste com usuário cadastrado e aniversário do usuário
 
 Neste caso é necessário utilizar um ID de usuário existente na base e que seja aniversário dele. Você pode incluir no script de create_tables.sql, caso não exista.
 
