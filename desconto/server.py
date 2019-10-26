@@ -14,6 +14,9 @@ from datetime import date
 
 
 def getConnection():
+    """GetConnection()
+        Deve ser passado os parametros para conexão no Mariadb;
+    """
     hostname = os.environ['MYSQL_HOST']
     username = os.environ['MYSQL_USER']
     password = os.environ['MYSQL_PASSWORD']
@@ -164,9 +167,10 @@ if __name__ == '__main__':
     server.add_secure_port(host, server_credentials)
     dmsec_pb2_grpc.add_DescontoServicer_to_server(Dmsec(), server)
 
+    logging.basicConfig(filename="server.log", level=logging.INFO)
     try:
         server.start()
-        print('Running Servicoooo de Desconto em %s' % host)
+        print('Serviço de Desconto na porta %s em execução' % host)
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
