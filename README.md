@@ -35,6 +35,7 @@ docker-compose up -d
 
 Portas utilizadas pelos serviços:
 
+* 3306  - Banco de dados;
 * 11443 - Serviço de desconto;
 * 11080 - Serviço de listagem;
 
