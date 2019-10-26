@@ -34,8 +34,9 @@ docker-compose up -d
 ```
 
 Portas utilizadas pelos serviços:
-11443 - Serviço de desconto;
-11080 - Serviço de listagem;
+
+* 11443 - Serviço de desconto;
+* 11080 - Serviço de listagem;
 
 ## Ativação e desativação de blackfriday com alteração de % da campanha
 
