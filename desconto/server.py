@@ -43,33 +43,29 @@ def getBlackFriday():
         cursor.execute(query)
         records = cursor.fetchone()
 
-        #print(records[0])
-
         if cursor.rowcount > 0:
             logging.info("Blackfriday true")
-            print("Blackfriday true")
             return True
         else:
             logging.info("Blackfriday false")
-            print("Blackfriday false")
             return False
 
     except Error as e:
-        print("Error reading data from MySQL table", e)
+        logging.error("Error reading data from MySQL table", e)
     finally:
         if (cnx.is_connected()):
             cnx.close()
             cursor.close()
-            print("MySQL connection is closed")
+            logging.info("MySQL connection is closed")
 
 
 def birthday(birthday):
     date_time_str = birthday
     date_time_obj = datetime.datetime.strptime(date_time_str, '%d/%m/%Y')
-    print('Date:', date_time_obj.date())
+    #print('Date:', date_time_obj.date())
     birthday = date_time_obj.date()
     today = datetime.date.today()
-    print(today)
+    #print(today)
     days = today.day - birthday.day
     months = today.month - birthday.month
     retorno = False
@@ -85,12 +81,10 @@ def getCampanhaPCT(campanha):
     try:
         cnx = getConnection()
         cursor = cnx.cursor()
-        print("Database version : ")
         query = "SELECT pct FROM campanhas where status = 1 and id =%s"
         cursor.execute(query, (campanha,))
         records = cursor.fetchone()
 
-        print("Total number of rows is: ", cursor.rowcount)
         logging.info("Records: %s " % records)
 
         try:
@@ -101,21 +95,19 @@ def getCampanhaPCT(campanha):
         return value
 
     except Error as e:
-        print("Error reading data from MySQL table", e)
+        logging.error("Error reading data from MySQL table", e)
     finally:
         if (cnx.is_connected()):
             cnx.close()
             cursor.close()
-            print("MySQL connection is closed")
+            logging.info("MySQL connection is closed")
 
 
 def clienteExistsAndBirthday(cliente):
     try:
         isBirthday = False
         cnx = getConnection()
-        print("conection")
         cursor = cnx.cursor()
-        print("conection")
         sql_select_query = "select * from clientes where id ='%s'"
         cursor.execute(sql_select_query, (cliente.id,))
         record = cursor.fetchall()
@@ -131,31 +123,46 @@ def clienteExistsAndBirthday(cliente):
         return isBirthday
 
     except Error as e:
-        print("Error reading data from MySQL table", e)
+        logging.error("Error reading data from MySQL table", e)
     finally:
         if (cnx.is_connected()):
             cnx.close()
             cursor.close()
-            print("MySQL connection is closed")
+            logging.infor("MySQL connection is closed")
+
 
 
 class Dmsec(dmsec_pb2_grpc.DescontoServicer):
+    """Classe responsavel para implementar o nosso contrato Grpc"""
 
     def AplicarDesconto(self, request, content):
+
+        """ Aplicar desconto """
         cliente = request.cliente
         produto = request.produto
         desconto = dmsec_pb2.DiscountValue()
+        #print("cliente:" + str(cliente.id))
 
-        print("Entrei no Aplicardesconto")
-        print("cliente:" + str(cliente.id))
+        """1) Verificamos se estamos no período de blackfriday
+           2) Senão estivermos em blackfriday, verificamos o aniversario do cliente
+           3) Se nenhuma das condições acima atender, o cliente nao terá desconto.
+           4) Há maneiras melhores de criar estas regras abaixo, porém neste momento segui o pedido do teste
+        """
 
-        # Pode ser melhorado criando outro microservico para verificar os descontos para todos os clientes / exemplo em campanhas promocionais
         if (getBlackFriday()) and produto.price_in_cents > 0:
             logging.info(getCampanhaPCT(1))
             value = getCampanhaPCT(1)
             logging.info(value)
             pct = getCampanhaPCT(1)
-            print("PCT", pct)
+            #print("PCT", pct)
+
+
+            """A porcentagem nao pode ultrapassar os 10%.
+                Obs. Há outras formas melhores de implementação
+            """
+            if pct > 10:
+                pct = 10;
+
             percentual = decimal.Decimal(pct) / 100  # 10%
             price = decimal.Decimal(produto.price_in_cents) / 100
             novo_price = price - (price * percentual)
@@ -169,9 +176,12 @@ class Dmsec(dmsec_pb2_grpc.DescontoServicer):
             return dmsec_pb2.DescontoResposta(produto=produto_com_discount)
 
         elif (clienteExistsAndBirthday(cliente)) and produto.price_in_cents > 0:
-            # Para melhorar podemos parametrizar a porcentagem de desconto em outro microservico ou que busque do BD
-            print('Entrei por aqui')
+
             pct = getCampanhaPCT(2)
+
+            if pct > 10:
+                pct = 10;
+
             percentual = decimal.Decimal(pct) / 100  # 05%
             price = decimal.Decimal(produto.price_in_cents) / 100
             novo_price = price - (price * percentual)
@@ -185,7 +195,7 @@ class Dmsec(dmsec_pb2_grpc.DescontoServicer):
             return dmsec_pb2.DescontoResposta(produto=produto_com_discount)
 
         else:
-            print("Sem desconto aplicado")
+            logging.info("Nao ha desconto a ser aplicado neste momento")
             percentual = 0  # Sem %
             value_in_cents = produto.price_in_cents
             desconto = dmsec_pb2.DiscountValue(pct=percentual, value_in_cents=value_in_cents)
@@ -196,7 +206,9 @@ class Dmsec(dmsec_pb2_grpc.DescontoServicer):
                                                      discount_value=desconto)
             return dmsec_pb2.DescontoResposta(produto=produto_com_discount)
 
-
+"""
+    Metodo principal
+"""
 if __name__ == '__main__':
     port = sys.argv[1] if len(sys.argv) > 1 else 443
     host = '[::]:%s' % port

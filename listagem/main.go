@@ -75,7 +75,7 @@ func GetConnectionDB()(db *sql.DB) {
 	return db
 }
 
-func getDiscountConnection(host string) (*grpc.ClientConn, error) {
+func getDescontoConnection(host string) (*grpc.ClientConn, error) {
 	wd, _ := os.Getwd()
 	parentDir := filepath.Dir(wd)
 	certFile := filepath.Join(parentDir, "keys", "cert.pem")
@@ -85,7 +85,6 @@ func getDiscountConnection(host string) (*grpc.ClientConn, error) {
 
 func setBlackfriday(status bool, pct int32) {
 	db := GetConnectionDB()
-
 	insForm, err := db.Prepare("UPDATE campanhas SET status=?, pct=? WHERE campanha='Blackfriday'")
 	if err != nil {
 		panic(err.Error())
@@ -100,7 +99,6 @@ func setBlackfriday(status bool, pct int32) {
 }
 
 func ReturnOneCliente(id int ) ClientsDB {
-	fmt.Print(id)
 	db := GetConnectionDB()
 	selDB, err := db.Query("SELECT * FROM clientes WHERE id=?", int32(id))
 	if err != nil {
@@ -125,9 +123,9 @@ func ReturnOneCliente(id int ) ClientsDB {
 
 func findClienteByID(id int) (pb.Cliente, error) {
 	cliente := ReturnOneCliente(id)
-	c1 := pb.Cliente{Id: cliente.id, FirstName: cliente.first_name, LastName: cliente.last_name, Birthday: cliente.birthday}
+	cli := pb.Cliente{Id: cliente.id, FirstName: cliente.first_name, LastName: cliente.last_name, Birthday: cliente.birthday}
 	clientes := map[int]pb.Cliente{
-		id: c1,
+		id: cli,
 	}
 	found, ok := clientes[id]
 	if ok {
@@ -167,9 +165,9 @@ func getProductsWithDiscountApplied(cliente pb.Cliente, produtos []*pb.Produto) 
 	if len(host) == 0 {
 		host = "localhost:11443"
 	}
-	conn, err := getDiscountConnection(host)
+	conn, err := getDescontoConnection(host)
 	if err != nil {
-		log.Fatalf("did not connect: %v", err)
+		log.Fatalf("Nao é possivel conectar no servico: %v", err)
 	}
 	defer conn.Close()
 	c := pb.NewDescontoClient(conn)
@@ -259,6 +257,6 @@ func main() {
 
 	http.HandleFunc("/blackfriday", handleBlackFriday)
 	http.HandleFunc("/products", handleGetProducts)
-	fmt.Println("Iniciado o serviço de Listagem na porta: ", port)
+	log.Println("Iniciado o serviço de Listagem na porta: ", port)
 	http.ListenAndServe(":"+port, nil)
 }

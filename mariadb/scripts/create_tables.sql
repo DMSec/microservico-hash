@@ -42,10 +42,20 @@ INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao8','abc','27/1
 INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao9','abc','28/10/2019');
 INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao10','abc','29/10/2019');
 INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao11','abc','30/10/2019');
-
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao12','abc','31/10/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao13','abc','01/11/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao14','abc','02/11/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao15','abc','03/11/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao16','abc','04/11/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao17','abc','05/11/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao18','abc','06/11/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao19','abc','07/11/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao20','abc','08/11/2019');
+INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao21','abc','09/11/2019');
 commit;
 
-INSERT INTO campanhas(campanha, status, pct) VALUES('Blackfriday',true, 10);
+
+INSERT INTO campanhas(campanha, status, pct) VALUES('Blackfriday',false, 10);
 INSERT INTO campanhas(campanha, status, pct) VALUES('Aniversario',true, 5);
 commit;
 
