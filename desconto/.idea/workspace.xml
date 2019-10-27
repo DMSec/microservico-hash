@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="33e74f8f-a52a-4cd2-a995-ef94ab05f015" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../keys/cert.pem" beforeDir="false" afterPath="$PROJECT_DIR$/../keys/cert.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../keys/cert.pem_bkp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../keys/private.key" beforeDir="false" afterPath="$PROJECT_DIR$/../keys/private.key" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../keys/private.key_bkp" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -114,7 +119,8 @@
       <workItem from="1571787926389" duration="7521000" />
       <workItem from="1571973503915" duration="506000" />
       <workItem from="1572058756167" duration="1082000" />
-      <workItem from="1572142180475" duration="9637000" />
+      <workItem from="1572142180475" duration="9983000" />
+      <workItem from="1572178559410" duration="218000" />
     </task>
     <servers />
   </component>

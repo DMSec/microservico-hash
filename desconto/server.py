@@ -78,22 +78,18 @@ def getCampanhaPCT(campanha):
         cnx = getConnection()
         cursor = cnx.cursor()
         print("Database version : ")
-        query = "SELECT * FROM campanhas where status = 1 and campanha ='%s'"
+        query = "SELECT pct FROM campanhas where status = 1 and campanha ='%s'"
         cursor.execute(query, (campanha,))
-        records = cursor.fetchall()
+        records = cursor.fetchone()
 
+        value = 0;
         print("Total number of rows is: ", cursor.rowcount)
         logging.info("Records: %s " % records)
 
         for row in records:
-            value = int(row[4])
+            value = decimal(row[0])
 
-        if cursor.rowcount > 0:
-            print("Campanha")
-            return value
-        else:
-            print("Sem campanha")
-            return 0
+        return value
 
     except Error as e:
         print("Error reading data from MySQL table", e)
@@ -148,9 +144,9 @@ class Dmsec(dmsec_pb2_grpc.DescontoServicer):
         # Pode ser melhorado criando outro microservico para verificar os descontos para todos os clientes / exemplo em campanhas promocionais
         if (getBlackFriday()) and produto.price_in_cents > 0:
             logging.info(getCampanhaPCT("Blackfriday"))
-            value = getCampanhaPCT('Blackfriday')
+            value = getCampanhaPCT("Blackfriday")
             logging.info(value)
-            pct = getCampanhaPCT('Blackfriday')
+            pct = getCampanhaPCT("Blackfriday")
 
             percentual = decimal.Decimal(pct) / 100  # 10%
             price = decimal.Decimal(produto.price_in_cents) / 100
