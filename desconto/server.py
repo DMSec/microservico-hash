@@ -81,9 +81,12 @@ def getCampanhaPCT(campanha):
         print("Total number of rows is: ", cursor.rowcount)
         print("Records: %s " % records)
 
+        for row in records:
+            value = int(row[0])
+
         if cursor.rowcount > 0:
             print("Blackfriday true")
-            return records
+            return value
         else:
             print("Blackfriday false")
             return 0
