@@ -140,7 +140,7 @@ class Dmsec(dmsec_pb2_grpc.DescontoServicer):
 
         # Pode ser melhorado criando outro microservico para verificar os descontos para todos os clientes / exemplo em campanhas promocionais
         if (getBlackFriday()) and produto.price_in_cents > 0:
-            pct = getCampanhaPCT("Blackfriday")
+            pct = int(getCampanhaPCT("Blackfriday"))
             percentual = decimal.Decimal(pct) / 100  # 10%
             price = decimal.Decimal(produto.price_in_cents) / 100
             novo_price = price - (price * percentual)
@@ -156,7 +156,7 @@ class Dmsec(dmsec_pb2_grpc.DescontoServicer):
         elif (clienteExistsAndBirthday(cliente)) and produto.price_in_cents > 0:
             # Para melhorar podemos parametrizar a porcentagem de desconto em outro microservico ou que busque do BD
             print('Entrei por aqui')
-            pct =  getCampanhaPCT("Aniversario")
+            pct = int(getCampanhaPCT("Aniversario"))
             percentual = decimal.Decimal(pct) / 100  # 05%
             price = decimal.Decimal(produto.price_in_cents) / 100
             novo_price = price - (price * percentual)
