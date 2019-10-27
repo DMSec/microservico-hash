@@ -8,8 +8,8 @@ Link do desafio: https://github.com/hashlab/hiring/blob/master/challenges/pt-br/
 Nesse exemplo temos 2 microserviços e uma base de dados compartilhada.
 
 
-1) Usuário poderá chamar pelo Postman;
-2) usuário poderá chamar pelo CURL;
+1) Teste poderá ser feito pelo Postman;
+2) Teste poderá ser pelo CURL;
 3) Serviço de listagem - Responsável por expor e retornar uma API Rest de produtos cadastrados na base de dados;
 4) Base de dados MariaDB com as tabelas Clientes, Produtos e Campanhas;
 5) Serviço de desconto - Responsável por oferecer informações para o serviço de listagem de produtos, mas aplicando os descontos das campanhas. Nesse momento temos a campanha de blackfriday e a de aniversário;
