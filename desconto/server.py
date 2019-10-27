@@ -28,18 +28,22 @@ def getBlackFriday():
     try:
         cnx = getConnection()
         cursor = cnx.cursor()
-        print("Database version : ")
+        logging.info("Database version : ")
         query = "SELECT * FROM campanhas where status = 1 and campanha ='Blackfriday'"
         cursor.execute(query)
         records = cursor.fetchall()
 
+        logging.info("Total number of rows is: ", cursor.rowcount)
         print("Total number of rows is: ", cursor.rowcount)
+        logging.info("Records: %s"% records)
         print("Records: %s " % records)
 
         if cursor.rowcount > 0:
+            logging.info("Blackfriday true")
             print("Blackfriday true")
             return True
         else:
+            logging.info("Blackfriday false")
             print("Blackfriday false")
             return False
 
@@ -143,7 +147,9 @@ class Dmsec(dmsec_pb2_grpc.DescontoServicer):
 
         # Pode ser melhorado criando outro microservico para verificar os descontos para todos os clientes / exemplo em campanhas promocionais
         if (getBlackFriday()) and produto.price_in_cents > 0:
+            logging.info(getCampanhaPCT("Blackfriday"))
             pct = int(getCampanhaPCT("Blackfriday")[0])
+
             percentual = decimal.Decimal(pct) / 100  # 10%
             price = decimal.Decimal(produto.price_in_cents) / 100
             novo_price = price - (price * percentual)
@@ -201,6 +207,7 @@ if __name__ == '__main__':
     logging.basicConfig(filename="server.log", level=logging.INFO)
     try:
         server.start()
+        logging.info('Servico de Desconto na porta %s em execucao' % host)
         print('Servico de Desconto na porta %s em execucao' % host)
         while True:
             time.sleep(1)
