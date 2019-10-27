@@ -80,10 +80,10 @@ def getCampanhaPCT(campanha):
         print("Database version : ")
         query = "SELECT pct FROM campanhas where status = 1 and campanha ='%s'"
         cursor.execute(query, (campanha,))
-        records = cursor.fetchall()
+        records = cursor.fetchone()
 
         print("Total number of rows is: ", cursor.rowcount)
-        print("Records: %s " % records)
+        logging.info("Records: %s " % records)
 
         for row in records:
             value = int(row[0])
