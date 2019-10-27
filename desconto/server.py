@@ -13,30 +13,37 @@ from concurrent import futures
 from mysql.connector import Error
 from datetime import date
 
+
 def getConnection():
     """GetConnection()
         Deve ser passado os parametros para conexão no Mariadb;
     """
-    hostname = os.environ['MYSQL_HOST']
-    username = os.environ['MYSQL_USER']
-    password = os.environ['MYSQL_PASSWORD']
-    database = os.environ['MYSQL_DBNAME']
+    try:
+        hostname = os.environ['MYSQL_HOST']
+        username = os.environ['MYSQL_USER']
+        password = os.environ['MYSQL_PASSWORD']
+        database = os.environ['MYSQL_DBNAME']
+    except:
+        hostname = "172.17.0.2"
+        username = "root"
+        password = "root123"
+        database = "mysql"
+
     connection = mysql.connector.connect(host=hostname, user=username, passwd=password, db=database)
     return connection
+
 
 def getBlackFriday():
     try:
         cnx = getConnection()
         cursor = cnx.cursor()
         logging.info("Database version : ")
-        query = "SELECT * FROM campanhas where status = 1 and campanha ='Blackfriday'"
-        cursor.execute(query)
-        records = cursor.fetchall()
+        query = "SELECT * FROM campanhas where status = 1 and id = 1"
 
-        logging.info("Total number of rows is: ", cursor.rowcount)
-        print("Total number of rows is: ", cursor.rowcount)
-        logging.info("Records: %s"% records)
-        print("Records: %s " % records)
+        cursor.execute(query)
+        records = cursor.fetchone()
+
+        #print(records[0])
 
         if cursor.rowcount > 0:
             logging.info("Blackfriday true")
@@ -73,21 +80,23 @@ def birthday(birthday):
     else:
         return retorno
 
+
 def getCampanhaPCT(campanha):
     try:
         cnx = getConnection()
         cursor = cnx.cursor()
         print("Database version : ")
-        query = "SELECT pct FROM campanhas where status = 1 and campanha ='%s'"
+        query = "SELECT pct FROM campanhas where status = 1 and id =%s"
         cursor.execute(query, (campanha,))
         records = cursor.fetchone()
 
-        value = 0;
         print("Total number of rows is: ", cursor.rowcount)
         logging.info("Records: %s " % records)
 
-        for row in records:
-            value = decimal(row[0])
+        try:
+            value = records[0]
+        except:
+            value = 0
 
         return value
 
@@ -98,7 +107,6 @@ def getCampanhaPCT(campanha):
             cnx.close()
             cursor.close()
             print("MySQL connection is closed")
-
 
 
 def clienteExistsAndBirthday(cliente):
@@ -143,11 +151,11 @@ class Dmsec(dmsec_pb2_grpc.DescontoServicer):
 
         # Pode ser melhorado criando outro microservico para verificar os descontos para todos os clientes / exemplo em campanhas promocionais
         if (getBlackFriday()) and produto.price_in_cents > 0:
-            logging.info(getCampanhaPCT("Blackfriday"))
-            value = getCampanhaPCT("Blackfriday")
+            logging.info(getCampanhaPCT(1))
+            value = getCampanhaPCT(1)
             logging.info(value)
-            pct = getCampanhaPCT("Blackfriday")
-
+            pct = getCampanhaPCT(1)
+            print("PCT", pct)
             percentual = decimal.Decimal(pct) / 100  # 10%
             price = decimal.Decimal(produto.price_in_cents) / 100
             novo_price = price - (price * percentual)
@@ -163,7 +171,7 @@ class Dmsec(dmsec_pb2_grpc.DescontoServicer):
         elif (clienteExistsAndBirthday(cliente)) and produto.price_in_cents > 0:
             # Para melhorar podemos parametrizar a porcentagem de desconto em outro microservico ou que busque do BD
             print('Entrei por aqui')
-            pct = int(getCampanhaPCT('Aniversario'))
+            pct = getCampanhaPCT(2)
             percentual = decimal.Decimal(pct) / 100  # 05%
             price = decimal.Decimal(produto.price_in_cents) / 100
             novo_price = price - (price * percentual)

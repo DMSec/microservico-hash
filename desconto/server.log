@@ -1,5 +1,47 @@
-INFO:root:Running Servicoooo de Desconto em [::]:11443
-INFO:root:Running Servicoooo de Desconto em [::]:11444
-INFO:root:Running Servicoooo de Desconto em [::]:11444
 INFO:root:Servico de Desconto na porta [::]:11443 em execucao
+INFO:root:Database version : 
+ERROR:grpc._server:Exception calling application: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/douglasmsi/.local/lib/python3.6/site-packages/grpc/_server.py", line 435, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "server.py", line 153, in AplicarDesconto
+    if (getBlackFriday()) and produto.price_in_cents > 0:
+  File "server.py", line 46, in getBlackFriday
+    print(records[0])
+TypeError: 'NoneType' object is not subscriptable
+INFO:root:Database version : 
+ERROR:grpc._server:Exception calling application: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/douglasmsi/.local/lib/python3.6/site-packages/grpc/_server.py", line 435, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "server.py", line 153, in AplicarDesconto
+    if (getBlackFriday()) and produto.price_in_cents > 0:
+  File "server.py", line 46, in getBlackFriday
+    print(records[0])
+TypeError: 'NoneType' object is not subscriptable
+INFO:root:Database version : 
+ERROR:grpc._server:Exception calling application: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/douglasmsi/.local/lib/python3.6/site-packages/grpc/_server.py", line 435, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "server.py", line 153, in AplicarDesconto
+    if (getBlackFriday()) and produto.price_in_cents > 0:
+  File "server.py", line 46, in getBlackFriday
+    print(records[0])
+TypeError: 'NoneType' object is not subscriptable
 INFO:root:Servico de Desconto na porta [::]:11443 em execucao
+INFO:root:Database version : 
+INFO:root:Blackfriday false
+INFO:root:Database version : 
+INFO:root:Blackfriday false
+INFO:root:Database version : 
+INFO:root:Blackfriday false
+INFO:root:Database version : 
+INFO:root:Blackfriday false
+INFO:root:Records: 5 
+INFO:root:Database version : 
+INFO:root:Blackfriday false
+INFO:root:Records: 5 
+INFO:root:Database version : 
+INFO:root:Blackfriday false
+INFO:root:Records: 5 
