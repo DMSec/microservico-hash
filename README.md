@@ -1,8 +1,6 @@
 # Microserviços em Golang, Python, MariaDB e Docker
 
-
 ![alt text](https://cdn-images-1.medium.com/max/800/1*I5kMbgX4qZkycpOFlcEbdw.png)
-
 
 
 Nesse exemplo temos 2 microserviços e uma base de dados compartilhada.
@@ -24,7 +22,11 @@ git clone https://github.com/DMSec/microservico-hash.git
 cd microservico-hash
 ```
 
-## Execução do docker compose build - Construção dos nossos containers
+## Gerar chaves para o serviço de desconto
+```
+openssl req -x509 -newkey rsa:4096 -keyout private.key -out cert.pem -days 365 -nodes -subj '/CN=desconto'
+```
+## Execução do docker-compose build - Construção dos nossos containers
 ```
 docker-compose build
 ```

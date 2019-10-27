@@ -1,5 +1,6 @@
 import datetime
 import logging
+import string
 import sys
 import time
 import os
@@ -12,7 +13,6 @@ from concurrent import futures
 from mysql.connector import Error
 from datetime import date
 
-
 def getConnection():
     """GetConnection()
         Deve ser passado os parametros para conexão no Mariadb;
@@ -24,16 +24,16 @@ def getConnection():
     connection = mysql.connector.connect(host=hostname, user=username, passwd=password, db=database)
     return connection
 
-
 def getBlackFriday():
     try:
         cnx = getConnection()
         cursor = cnx.cursor()
         print("Database version : ")
-        query = "SELECT * FROM campanhas where status = 1"
+        query = "SELECT * FROM campanhas where status = 1 and campanha ='Blackfriday'"
         cursor.execute(query)
         records = cursor.fetchall()
-        print("Total number of rows in Laptop is: ", cursor.rowcount)
+
+        print("Total number of rows is: ", cursor.rowcount)
         print("Records: %s " % records)
 
         if cursor.rowcount > 0:
@@ -69,9 +69,33 @@ def birthday(birthday):
     else:
         return retorno
 
-def getBirthdayCampanha(cliente){
+def getCampanhaPCT(campanha):
+    try:
+        cnx = getConnection()
+        cursor = cnx.cursor()
+        print("Database version : ")
+        query = "SELECT pct FROM campanhas where status = 1 and campanha ='%s'"
+        cursor.execute(query, (campanha,))
+        records = cursor.fetchall()
 
-}
+        print("Total number of rows is: ", cursor.rowcount)
+        print("Records: %s " % records)
+
+        if cursor.rowcount > 0:
+            print("Blackfriday true")
+            return records
+        else:
+            print("Blackfriday false")
+            return 0
+
+    except Error as e:
+        print("Error reading data from MySQL table", e)
+    finally:
+        if (cnx.is_connected()):
+            cnx.close()
+            cursor.close()
+            print("MySQL connection is closed")
+
 
 
 def clienteExistsAndBirthday(cliente):
@@ -116,7 +140,8 @@ class Dmsec(dmsec_pb2_grpc.DescontoServicer):
 
         # Pode ser melhorado criando outro microservico para verificar os descontos para todos os clientes / exemplo em campanhas promocionais
         if (getBlackFriday()) and produto.price_in_cents > 0:
-            percentual = decimal.Decimal(10) / 100  # 10%
+            pct = getCampanhaPCT("Blackfriday")
+            percentual = decimal.Decimal(pct) / 100  # 10%
             price = decimal.Decimal(produto.price_in_cents) / 100
             novo_price = price - (price * percentual)
             value_in_cents = int(novo_price * 100)
@@ -131,7 +156,8 @@ class Dmsec(dmsec_pb2_grpc.DescontoServicer):
         elif (clienteExistsAndBirthday(cliente)) and produto.price_in_cents > 0:
             # Para melhorar podemos parametrizar a porcentagem de desconto em outro microservico ou que busque do BD
             print('Entrei por aqui')
-            percentual = decimal.Decimal(5) / 100  # 05%
+            pct =  getCampanhaPCT("Aniversario")
+            percentual = decimal.Decimal(pct) / 100  # 05%
             price = decimal.Decimal(produto.price_in_cents) / 100
             novo_price = price - (price * percentual)
             value_in_cents = int(novo_price * 100)
@@ -144,7 +170,7 @@ class Dmsec(dmsec_pb2_grpc.DescontoServicer):
             return dmsec_pb2.DescontoResposta(produto=produto_com_discount)
 
         else:
-            print("Cai no else")
+            print("Sem desconto aplicado")
             percentual = 0  # Sem %
             value_in_cents = produto.price_in_cents
             desconto = dmsec_pb2.DiscountValue(pct=percentual, value_in_cents=value_in_cents)
@@ -154,8 +180,6 @@ class Dmsec(dmsec_pb2_grpc.DescontoServicer):
                                                      price_in_cents=produto.price_in_cents,
                                                      discount_value=desconto)
             return dmsec_pb2.DescontoResposta(produto=produto_com_discount)
-
-        # if cliente.id == 1 and produto.price_in_cents > 0:
 
 
 if __name__ == '__main__':
