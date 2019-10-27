@@ -3,6 +3,8 @@
 ![alt text](https://cdn-images-1.medium.com/max/800/1*I5kMbgX4qZkycpOFlcEbdw.png)
 
 
+Link do desafio: https://github.com/hashlab/hiring/blob/master/challenges/pt-br/back-challenge.md 
+
 Nesse exemplo temos 2 microserviços e uma base de dados compartilhada.
 
 
@@ -13,8 +15,6 @@ Nesse exemplo temos 2 microserviços e uma base de dados compartilhada.
 5) Serviço de desconto - Responsável por oferecer informações para o serviço de listagem de produtos, mas aplicando os descontos das campanhas. Nesse momento temos a campanha de blackfriday e a de aniversário;
 
 
-Informações detalhadas podem ser encontradas no https://medium.com/dmsec
-
 ## Clone este repositório
 
 ```
@@ -22,7 +22,32 @@ git clone https://github.com/DMSec/microservico-hash.git
 cd microservico-hash
 ```
 
-## Gerar chaves para o serviço de desconto
+### Localhost
+
+Se optar por rodar em localhost. Requisitos:
+* Alterar o valor do host no código para a conexão com o banco de dados;
+* Copias as chaves para rodar localmente.
+
+Para copiar:
+```
+cd keys
+cp localhost\cert.pem cert.pem
+cp localhost\private.key private.key
+```
+
+### Docker
+
+Se optar por rodar em Docker. Requisitos:
+* Copiar as chaves ou gerar uma nova chave para o serviço de desconto.
+
+Para copiar:
+```
+cd keys
+cp desconto\cert.pem cert.pem
+cp desconto\private.key private.key
+```
+ 
+Para gerar as chaves:
 ```
 openssl req -x509 -newkey rsa:4096 -keyout private.key -out cert.pem -days 365 -nodes -subj '/CN=desconto'
 ```
@@ -41,17 +66,46 @@ Portas utilizadas pelos serviços:
 * 11443 - Serviço de desconto;
 * 11080 - Serviço de listagem;
 
-## Ativação e desativação de blackfriday com alteração de % da campanha
 
 
-## Teste com blackfriday ativa sem usuário no header do POST
+## Listagem de produtos (sem usuário)
 ```
 curl http://localhost:11080/products
 ```
 
-## Teste com usuário cadastrado e blackfriday desativada
+## Listagem de produtos (com usuário aniversariante)
+
+Neste caso, precisamos utilizar um ID no qual o dia da execução, seja o aniversário do cliente.
+
+Você pode incluir no script de create_tables.sql, caso não exista.
+
+Criei alguns registros na tabela até o dia 08/11/2019. Será aplicado 5% de desconto nos produtos.
+
 ```
-curl -H 'X-USER-ID: 1' http://localhost:11080/products
+curl -H 'X-USER-ID: 7' http://localhost:11080/products
+```
+
+### Blackfriday
+Apesar da blackfriday ocorrer em uma sexta-feira, optei por criar uma rota de ativação e desativação de blackfriday, sendo assim para os testes de blackfriday
+devemos ativar.
+
+
+## Ativação blackfriday com alteração de % da campanha
+```
+curl -H 'blackfriday: 1 pct: 10' http://localhost:11080/blackfriday
+```
+
+## Teste durante a blackfriday
+
+Neste caso, mesmo sendo aniversário do nosso cliente, valerá a regra da blackfriday que oferece os 10% limites no preço dos produtos.
+
+```
+curl -H 'X-USER-ID: 7' http://localhost:11080/products
+```
+
+## Desativação blackfriday com alteração de % da campanha
+```
+curl -H 'blackfriday: 0 pct: 10' http://localhost:11080/blackfriday
 ```
 
 ## Teste com usuário cadastrado e aniversário do usuário

@@ -128,7 +128,7 @@ def clienteExistsAndBirthday(cliente):
         if (cnx.is_connected()):
             cnx.close()
             cursor.close()
-            logging.infor("MySQL connection is closed")
+            logging.info("MySQL connection is closed")
 
 
 
