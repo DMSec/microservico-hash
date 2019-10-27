@@ -150,7 +150,7 @@ class Dmsec(dmsec_pb2_grpc.DescontoServicer):
             logging.info(getCampanhaPCT("Blackfriday"))
             value = getCampanhaPCT('Blackfriday')
             logging.info(value)
-            pct = int(getCampanhaPCT('Blackfriday'))
+            pct = getCampanhaPCT('Blackfriday')
 
             percentual = decimal.Decimal(pct) / 100  # 10%
             price = decimal.Decimal(produto.price_in_cents) / 100
