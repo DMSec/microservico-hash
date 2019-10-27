@@ -78,21 +78,21 @@ def getCampanhaPCT(campanha):
         cnx = getConnection()
         cursor = cnx.cursor()
         print("Database version : ")
-        query = "SELECT pct FROM campanhas where status = 1 and campanha ='%s'"
+        query = "SELECT * FROM campanhas where status = 1 and campanha ='%s'"
         cursor.execute(query, (campanha,))
-        records = cursor.fetchone()
+        records = cursor.fetchall()
 
         print("Total number of rows is: ", cursor.rowcount)
         logging.info("Records: %s " % records)
 
         for row in records:
-            value = int(row[0])
+            value = int(row[4])
 
         if cursor.rowcount > 0:
-            print("Blackfriday true")
+            print("Campanha")
             return value
         else:
-            print("Blackfriday false")
+            print("Sem campanha")
             return 0
 
     except Error as e:
