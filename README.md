@@ -92,7 +92,7 @@ devemos ativar.
 
 ## Ativação blackfriday com alteração de % da campanha
 ```
-curl -H 'blackfriday: 1 pct: 10' http://localhost:11080/blackfriday
+curl -H 'blackfriday: 1' -H 'pct: 10' http://localhost:11080/blackfriday
 ```
 
 ## Teste durante a blackfriday
@@ -105,7 +105,7 @@ curl -H 'X-USER-ID: 7' http://localhost:11080/products
 
 ## Desativação blackfriday com alteração de % da campanha
 ```
-curl -H 'blackfriday: 0 pct: 10' http://localhost:11080/blackfriday
+curl -H 'blackfriday: 0' -H 'pct: 10' http://localhost:11080/blackfriday
 ```
 
 ## Teste com usuário cadastrado e aniversário do usuário
