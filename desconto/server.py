@@ -198,7 +198,7 @@ if __name__ == '__main__':
     logging.basicConfig(filename="server.log", level=logging.INFO)
     try:
         server.start()
-        print('Serviço de Desconto na porta %s em execução' % host)
+        print('Servico de Desconto na porta %s em execução' % host)
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
