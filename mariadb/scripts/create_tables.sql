@@ -42,6 +42,7 @@ INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao8','abc','27/1
 INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao9','abc','28/10/2019');
 INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao10','abc','29/10/2019');
 INSERT INTO clientes(first_name, last_name, birthday) VALUES('Joao11','abc','30/10/2019');
+
 commit;
 
 INSERT INTO campanhas(campanha, status, pct) VALUES('Blackfriday',true, 10);
