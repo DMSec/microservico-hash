@@ -148,7 +148,9 @@ class Dmsec(dmsec_pb2_grpc.DescontoServicer):
         # Pode ser melhorado criando outro microservico para verificar os descontos para todos os clientes / exemplo em campanhas promocionais
         if (getBlackFriday()) and produto.price_in_cents > 0:
             logging.info(getCampanhaPCT("Blackfriday"))
-            pct = int(getCampanhaPCT("Blackfriday")[0])
+            value = getCampanhaPCT("Blackfriday")
+            logging.info(value)
+            pct = int(getCampanhaPCT("Blackfriday"))
 
             percentual = decimal.Decimal(pct) / 100  # 10%
             price = decimal.Decimal(produto.price_in_cents) / 100
