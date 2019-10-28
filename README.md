@@ -3,7 +3,7 @@
 ![alt text](https://cdn-images-1.medium.com/max/800/1*I5kMbgX4qZkycpOFlcEbdw.png)
 
 
-Link do desafio: https://github.com/hashlab/hiring/blob/master/challenges/pt-br/back-challenge.md 
+Descrição com detalhes do desafio: https://medium.com/dmsec/microservi%C3%A7os-python-golang-mariadb-e-dockers-e119a7285ed4
 
 Nesse exemplo temos 2 microserviços e uma base de dados compartilhada.
 
@@ -26,7 +26,7 @@ cd microservico-hash
 
 Se optar por rodar em localhost. Requisitos:
 * Alterar o valor do host no código para a conexão com o banco de dados;
-* Copias as chaves para rodar localmente.
+* Copiar as chaves para rodar localmente.
 
 Para copiar:
 ```
