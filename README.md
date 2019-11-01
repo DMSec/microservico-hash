@@ -1,4 +1,4 @@
-# Microserviços em Golang, Python, MariaDB e Docker
+# Microserviços GRPC em Golang, Python, MariaDB e Docker
 
 ![alt text](https://cdn-images-1.medium.com/max/800/1*I5kMbgX4qZkycpOFlcEbdw.png)
 
